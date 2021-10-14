@@ -7,17 +7,32 @@
                     <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
                       <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
 
-                      <div class="row">
+                      <!-- <div class="row">
                         <div class="input-field col s12"> <br>
                           <input type="text" name="dept" #dept="ngModel" [(ngModel)]="employeeService.selectedEmployee.dept" placeholder="Enter Your Department" required>
                           <label>Department Name :
                           </label>
                         </div>
+                      </div> -->
+
+                      <div class="row">
+                      <div class="input-field col s12"><br><br>
+                        <select  class="browser-default" name="dept" #dept="ngModel" [(ngModel)]="employeeService.selectedEmployee.dept" placeholder="Enter Your Department" required>
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="HR">HR</option>
+                          <option value="IT">IT</option>
+                          <option value="Net Spark Dept.">Net Spark Dept.</option>
+                          <option value="Sales">Sales</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <label>Department Name :
+                        </label>
+                      </div>
                       </div>
 
                       <div class="row">
                         <div class="input-field col s12"> <br>
-                          <input type="text" name="deptNo" #deptNo="ngModel" [(ngModel)]="employeeService.selectedEmployee.deptNo" placeholder="Enter Your Department No" required>
+                          <input  type="text" name="deptNo" #deptNo="ngModel" [(ngModel)]="employeeService.selectedEmployee.deptNo" placeholder="Enter Your Department No" required>
                           <label>Department ID No :
                           </label>
                         </div>
@@ -32,16 +47,43 @@
                         </div>
                       </div>
 
+                      <!-- <div class="row">
+                        <div class="input-field col s12"><br><br>
+                          <select  class="browser-default" name="gender" #gender="ngModel" [(ngModel)]="employeeService.selectedEmployee.gender" placeholder="Enter Your Department" required>
+                            <option value="" disabled selected>Choose your Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                          </select>
+                          <label>Your Gender :
+                          </label>
+                        </div>
+                        </div> -->
+
+                        <div class="row">
+                          <div class="input-field col s12"><br>
+                            <section class="input-field col s12" ><br>
+                              <mat-radio-group name="gender" #gender="ngModel" [(ngModel)]="employeeService.selectedEmployee.gender">
+                                <mat-radio-button value="Male">Male</mat-radio-button>&nbsp;&nbsp;
+                                <mat-radio-button value="Female">Female</mat-radio-button>
+                              </mat-radio-group>
+                            </section>
+                            <label>Your Gender :
+                            </label>
+                          </div>
+                          </div>
+
+
                       <div class="row">
                         <div class="input-field col s12"> <br>
-                          <input type="text" name="position" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="EX : Sr. Developer">
+                          <input type="text" name="position" #position="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="EX : Sr. Developer">
                           <label>Position :</label>
                         </div>
                       </div>
 
                       <div class="row">
                         <div class="input-field col s12"> <br>
-                          <input type="text" name="empId" #empId="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="Enter Your Employee Id No">
+                          <input type="text" name="empId" #empId="ngModel" [(ngModel)]="employeeService.selectedEmployee.empId" placeholder="Enter Your Employee Id No">
                           <label>Employee Id No :</label>
                         </div>
                       </div>
@@ -75,9 +117,10 @@
                     <table class="responsive-table highlight">
                       <thead>
                         <tr>
-                          <th>Dept</th>
+                          <th>Department</th>
                           <th>DeptNo</th>
                           <th>Name</th>
+                          <th>Gender</th>
                           <th>Position</th>
                           <th>EmpID</th>
                           <th>salary</th>
@@ -89,6 +132,7 @@
                         <td>{{emp.dept}}</td>
                         <td>{{emp.deptNo}}</td>
                         <td>{{emp.name}}</td>
+                        <td>{{emp.gender}}</td>
                         <td>{{emp.position}}</td>
                         <td>{{emp.empId}}</td>
                         <td>{{emp.salary}}</td>
@@ -109,3 +153,42 @@
       </div>
   </div>
 </div>
+
+<div class="container text-center">
+  <h1>{{title}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="search-hero">
+      <input  class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a hero by Department Name">
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>DeptNo</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Position</th>
+          <th>EmpID</th>
+          <th>salary</th>
+          <th>Office</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let emp of employeeService.employees | filter:searchText">
+        <td>{{emp.dept}}</td>
+        <td>{{emp.deptNo}}</td>
+        <td>{{emp.name}}</td>
+        <td>{{emp.gender}}</td>
+        <td>{{emp.position}}</td>
+        <td>{{emp.empId}}</td>
+        <td>{{emp.salary}}</td>
+        <td>{{emp.office}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

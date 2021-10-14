@@ -3,6 +3,11 @@ import { EmployeeService } from '../shared/employee.service';
 import {NgForm} from '@angular/forms';
 import { Employee } from '../shared/employee.model';
 
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, Option);
+});
+
 declare var M: any;
 
 @Component({
@@ -12,6 +17,10 @@ declare var M: any;
   providers: [EmployeeService]
 })
 export class EmployeeComponent implements OnInit {
+
+  title = 'Search Employees';
+  searchText: any;
+  dept: any;
 
   constructor(public employeeService: EmployeeService) { }
 
@@ -28,6 +37,7 @@ export class EmployeeComponent implements OnInit {
       dept:"",
       deptNo:"",
       name: "",
+      gender: "",
       position: "",
       empId: "",
       salary: null!,
